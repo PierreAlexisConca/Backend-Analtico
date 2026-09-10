@@ -1,0 +1,60 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Backend Analítico API",
+        "description": "Servicios analíticos empresariales desarrollados con Flask, MongoDB y SQL Server mediante arquitectura por capas.",
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:5000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Verificar estado del Backend",
+                "description": "Permite validar que la API está funcionando correctamente.",
+                "responses": {
+                    "200": {
+                        "description": "Backend operativo"
+                    }
+                }
+            }
+        },
+        "/analytics/sales-total": {
+            "get": {
+                "summary": "Obtener ventas totales",
+                "description": "Calcula el monto total vendido utilizando información empresarial almacenada en las fuentes de datos configuradas.",
+                "tags": [
+                    "Indicadores Analíticos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cálculo realizado correctamente",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "indicator_name": {
+                                    "type": "string",
+                                    "example": "Total Sales"
+                                },
+                                "total_sales": {
+                                    "type": "number",
+                                    "example": 2855530
+                                },
+                                "currency": {
+                                    "type": "string",
+                                    "example": "PEN"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor"
+                    }
+                }
+            }
+        }
+    }
+}

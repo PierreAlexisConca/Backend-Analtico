@@ -11,7 +11,5 @@ def inicio():
     return {
         "estado": " Operativo",
         "servicio": "Backend Analítico",
-        "mensaje": "API funcionando correctamente 🚀",
-        "Estudiante": "Pierre Alexis Conca Flores 💡",
+        "mensaje": "API funcionando correctamente 🚀"
     }
-
