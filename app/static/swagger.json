@@ -24,35 +24,70 @@
         },
         "/analytics/sales-total": {
             "get": {
-                "summary": "Obtener ventas totales",
-                "description": "Calcula el monto total vendido utilizando información empresarial almacenada en las fuentes de datos configuradas.",
                 "tags": [
-                    "Indicadores Analíticos"
+                    "Indicadores SQL Server"
+                ],
+                "summary": "Obtener ventas totales",
+                "description": "Calcula las ventas totales. Permite filtrar por año y mes. Si solo se envía el mes, consulta ese mes de todos los años.",
+                "parameters": [
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "description": "Año de las ventas. El Backend valida que sea un número entero válido.",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "description": "Mes de las ventas. El Backend valida que esté entre 1 y 12.",
+                        "required": false,
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Cálculo realizado correctamente",
+                        "description": "Ventas totales calculadas correctamente",
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "indicator_name": {
-                                    "type": "string",
-                                    "example": "Total Sales"
-                                },
-                                "total_sales": {
-                                    "type": "number",
-                                    "example": 2855530
-                                },
-                                "currency": {
-                                    "type": "string",
-                                    "example": "PEN"
-                                }
-                            }
+                            "$ref": "#/definitions/IndicatorResponse"
                         }
+                    },
+                    "400": {
+                        "description": "Parámetros inválidos"
                     },
                     "500": {
                         "description": "Error interno del servidor"
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "IndicatorResponse": {
+            "type": "object",
+            "properties": {
+                "indicator": {
+                    "type": "string",
+                    "description": "Identificador único del indicador"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Título descriptivo del indicador"
+                },
+                "chart_type": {
+                    "type": "string",
+                    "description": "Tipo de gráfico recomendado (card, bar, line, pie)"
+                },
+                "data": {
+                    "type": "number",
+                    "description": "Valor numérico del indicador"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Fuentes de datos utilizadas"
                 }
             }
         }
